@@ -17,3 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource(
+    'questions',
+    \App\Http\Controllers\QuestionController::class
+)->only(['index', 'store', 'show', 'destroy']);
+
+Route::apiResource(
+    'voices',
+    \App\Http\Controllers\VoiceController::class
+)->only(['index', 'store']);
