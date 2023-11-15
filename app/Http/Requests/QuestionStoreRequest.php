@@ -2,12 +2,13 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
+use App\Traits\ThrowValidationException;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\ValidationException;
 
 class QuestionStoreRequest extends FormRequest
 {
+    use ThrowValidationException;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -28,13 +29,5 @@ class QuestionStoreRequest extends FormRequest
             'title' => 'required|string',
             'body' => 'required|string'
         ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        throw new ValidationException($validator, response()->json([
-            'status' => 422,
-            'error' => $validator->errors(),
-        ]));
     }
 }
